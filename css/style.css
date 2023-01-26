@@ -102,11 +102,15 @@ img {
 .logo__bold {
     font-weight: 700;
 }
+
+
 @media (min-width: 768px) {
     .navegacion {
         display: flex;
-        gap: 2rem;
+        flex-direction:row;
+        justify-content: space-between;
     }
+
 }
 .navegacion__enlace {
     display: block;
@@ -120,6 +124,10 @@ img {
         display: grid;
         grid-template-columns: 2fr 1fr;
         column-gap: 4rem;
+    }
+    .navegacion__enlace {
+        display: flex;
+        margin: 2rem;
     }
 }
 
