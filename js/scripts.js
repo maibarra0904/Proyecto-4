@@ -63,13 +63,57 @@ window,onscroll = function () {
 
 //Seleccionar un elemento y agregarle un evento
 
-const btnEnviar = document.querySelector('.boton--primario');
-btnEnviar.addEventListener('click', function(e) {
+const etiquetaNombre = document.querySelector('.campo__label');
+const formulario = document.querySelector('.formulario');
+const nombre = document.querySelector('#nombre');
+const email = document.querySelector('#email'); //Selecciono uno de los campos del formulario
+const mensaje = document.querySelector('#mensaje');
+
+//El evento click puede ser programado para cualquier elemento del html.En este caso se programa para que
+// al dar click en la etiqueta nombre refleje en la consola el contenido de la caja de texto respectiva
+
+etiquetaNombre.addEventListener('click', function(e) {
     e.preventDefault(); //Evita que se genere la acción por defecto         
-    console.log('Enviando formulario');
+    console.log(`El nombre es ${nombre.value}`);
     //alert('Diste click en Enviar')
 })
 
+//El evento submit
+
+
+formulario.addEventListener('submit', function(e) {
+    e.preventDefault();
+    //validando el formulario
+
+    mostrarAlerta();
+
+})
+
+function mostrarAlerta() {
+    const {nombre, email, mensaje} = datos;
+    const alerta = document.createElement('P');
+    let textoAlerta;
+
+    if(nombre==='' || email==='' || mensaje==='') {
+        textoAlerta='Todos los campos son obligatorios';
+        alerta.classList.add('error');
+        //return; //corta la ejecución del código hasta el fin del if
+    }
+    else {
+        textoAlerta='Tus datos han sido enviados exitosamente';
+        alerta.classList.add('exito');
+    }
+    
+    alerta.textContent = textoAlerta;
+    formulario.appendChild(alerta);
+    //console.log(mensaje);
+
+    //Desaparecer error después de 5 segundos
+    setTimeout(() => {
+        alerta.remove();
+    },3000);
+    
+}
 
 //Eventos de los Inputs y TextArea en Formularios
 
@@ -79,10 +123,6 @@ const datos = {
     mensaje: '' 
 }
 
-
-const nombre = document.querySelector('#nombre');
-const email = document.querySelector('#email'); //Selecciono uno de los campos del formulario
-const mensaje = document.querySelector('#mensaje');
 
 
 //input sirve para detectar cambios dentro del campo en cuestión
@@ -103,6 +143,5 @@ mensaje.addEventListener('change', actualizarDatos);
 
 function actualizarDatos(e) {
     datos[e.target.id] = e.target.value;
-    console.log(datos);
+    //console.log(datos);
 }
-
